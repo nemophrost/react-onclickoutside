@@ -1,55 +1,48 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var TestUtils = require('react-addons-test-utils');
-var wrapComponent = require('../index');
 
-describe('onclickoutside hoc', function() {
+import OnClickOutside from '../index'
 
-  var Component = React.createClass({
-    getInitialState: function() {
-      return {
-        clickOutsideHandled: false
-      };
-    },
+describe('OnClickOutside HOC', function() {
 
-    handleClickOutside: function() {
-      this.setState({
-        clickOutsideHandled: true
-      });
-    },
-
-    render: function() {
-      return React.createElement('div');
+  class TestComponent extends OnClickOutside {
+    render() {
+      return React.createElement('div')
     }
-  });
-
-  var WrappedComponent = wrapComponent(Component);
+  }
 
   // tests
 
-  it('should call handleClickOutside when clicking the document', function() {
-    var element = React.createElement(WrappedComponent);
+  it('should call onClickOutside when mousedown on the document', function() {
+    let clickHandled = false
+    const element = React.createElement(TestComponent, { onClickOutside: () => {
+      clickHandled = true
+    } });
     assert(element, "element can be created");
-    var component = TestUtils.renderIntoDocument(element);
+    const component = TestUtils.renderIntoDocument(element);
     assert(component, "component renders correctly");
     document.dispatchEvent(new Event('mousedown'));
-    var instance = component.getInstance();
-    assert(instance.state.clickOutsideHandled, "clickOutsideHandled got flipped");
+    assert(clickHandled, "clickHandled got flipped");
   });
 
 
-  it('should throw an error when a component without handleClickOutside(evt) is wrapped', function() {
-    var BadComponent = React.createClass({
-      render: function() {
-        return React.createElement('div');
-      }
+  it('should call onClickOutside when clicking the document if outsideEventTypes is specified as click', function() {
+    let clickHandled = false
+    const element = React.createElement(TestComponent, {
+      onClickOutside: () => {
+        clickHandled = true
+      },
+      outsideEventTypes: 'click'
     });
+    assert(element, "element can be created");
+    const component = TestUtils.renderIntoDocument(element);
+    assert(component, "component renders correctly");
 
-    try {
-      var bad = wrapComponent(BadComponent);
-      assert(false, "component was wrapped, despite not implementing handleClickOutside(evt)");
-    } catch (e) {
-      assert(e, "component was not wrapped");
-    }
+    document.dispatchEvent(new Event('mousedown'));
+    assert(!clickHandled, "clickHandled didn't get flipped");
+
+    document.dispatchEvent(new Event('click'));
+    assert(clickHandled, "clickHandled got flipped");
   });
 });
