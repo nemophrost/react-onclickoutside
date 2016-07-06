@@ -4,7 +4,7 @@ var TestUtils = require('react-addons-test-utils');
 
 import OnClickOutside from '../index'
 
-describe('OnClickOutside HOC', function() {
+describe('OnClickOutside Class', function() {
 
   class TestComponent extends OnClickOutside {
     render() {
