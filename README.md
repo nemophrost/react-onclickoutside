@@ -36,7 +36,7 @@ class MyComponent extends OnClickOutside {
 
 ## Regulate which events to listen for
 
-By default, "outside clicks" are based on both `mousedown` and `touchstart` events; if that is what you need, then you do not need to specify anything special. However, if you need different events, you can specify these using the `eventTypes` property. If you just need one event, you can pass in the event name as plain string:
+By default, "outside clicks" are based on both `mousedown` and `touchstart` events; if that is what you need, then you do not need to specify anything special. However, if you need different events, you can specify these using the `outsideEventTypes` property. If you just need one event, you can pass in the event name as plain string:
 
 ```jsx
 <MyComponent outsideEventTypes="click" ... />
@@ -46,6 +46,25 @@ For multiple events, you can pass in the array of event names you need to listen
 
 ```jsx
 <MyComponent outsideEventTypes={["click", "touchend"]} ... />
+```
+
+## Common issues
+
+### Uncaught SyntaxError: Unexpected token import
+
+If you get this error, you probably need to make sure whatever ES6 compiler you are using (Babel, etc.) is including the react-onclickoutside-es6 component.
+
+For example, if you are using webpack, you need to add the module to your js loader includes. Something like:
+
+```javascript
+{
+  test: /\.(js|jsx)$/,
+  loader: 'babel',
+  include: [
+    path.join(__dirname, './node_modules', 'react-onclickoutside-es6'),
+    ...
+  ]
+}
 ```
 
 ## React versions?
