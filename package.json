@@ -1,6 +1,6 @@
 {
   "name": "react-onclickoutside-es6",
-  "version": "6.0.1",
+  "version": "6.1.0",
   "description": "A bare bones onClickOutside ES6 Class component for React",
   "main": "index.js",
   "files": [
