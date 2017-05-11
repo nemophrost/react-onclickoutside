@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
 const DEFAULT_EVENTS = ['mousedown', 'touchstart']
 
-class OnClickOutside extends Component {
+class OnClickOutside extends PureComponent {
   constructor(props) {
     super(props)
 

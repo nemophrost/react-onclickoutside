@@ -16,6 +16,8 @@ $> npm install react-onclickoutside-es6 --save
 ```javascript
 // load the HOC:
 import OnClickOutside from 'react-onclickoutside-es6'
+// or to use the PureComponent version of OnClickOutside:
+// import OnClickOutside from 'react-onclickoutside-es6/pure'
 
 // create a new component, extending OnClickOutside:
 class MyComponent extends OnClickOutside {
